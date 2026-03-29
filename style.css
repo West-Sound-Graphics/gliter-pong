@@ -125,6 +125,24 @@ body {
     text-shadow: 0 0 10px #7b2cbf;
 }
 
+.start-btn {
+    margin-top: 16px;
+    padding: 10px 22px;
+    font-size: 20px;
+    color: #fff;
+    background: linear-gradient(135deg, #00f5d4, #ff0040);
+    border: 2px solid #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 0, 64, 0.7), 0 0 20px rgba(0, 245, 212, 0.7);
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.start-btn:hover {
+    transform: scale(1.05);
+    opacity: 0.95;
+}
+
 /* Instructions Panel */
 #instructions {
     position: absolute;

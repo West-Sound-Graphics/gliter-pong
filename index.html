@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disco Pong - Three.js</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+
+        <!-- Score Board Overlay -->
+        <div id="score-board">
+            <div id="player-score">PLAYER: <span id="player-score-val">0</span></div>
+            <div id="ai-score">AI: <span id="ai-score-val">0</span></div>
+        </div>
+
+        <!-- Game Title -->
+        <div id="game-title">
+            <h1>DISCO PONG</h1>
+        </div>
+
+        <!-- Start/Game Over Screen -->
+        <div id="overlay" class="overlay">
+            <div id="overlay-content">
+                <h2 id="overlay-title">PRESS SPACE TO START</h2>
+                <div id="overlay-message">USE ARROW KEYS TO MOVE YOUR PADDLE</div>
+            </div>
+        </div>
+
+        <!-- Instructions Panel -->
+        <div id="instructions">
+            <h3>CONTROLS</h3>
+            <ul>
+                <li><kbd>Arrow Up</kbd> Move Up</li>
+                <li><kbd>Arrow Down</kbd> Move Down</li>
+                <li><kbd>Space</kbd> Pause/Resume</li>
+                <li><kbd>Space</kbd> Reset Ball</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Three.js CDN -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+        }
+    }
+    </script>
+    <script type="module" src="game.js"></script>
+</body>
+</html>

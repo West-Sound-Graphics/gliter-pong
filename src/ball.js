@@ -28,6 +28,7 @@ export class Ball {
     this.mesh.position.copy(this.position);
     this.mesh.castShadow = true;
     this.mesh.receiveShadow = true;
+    if (this.scene) this.scene.add(this.mesh);
     
     // Add glow effect
     const glowGeometry = new THREE.SphereGeometry(this.radius + 0.5, 16, 16);

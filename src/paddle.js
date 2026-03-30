@@ -30,6 +30,7 @@ export class Paddle {
     this.mesh.position.copy(this.position);
     this.mesh.castShadow = true;
     this.mesh.receiveShadow = true;
+    if (this.scene) this.scene.add(this.mesh);
     
     // Add glow effect
     const glowGeometry = new THREE.BoxGeometry(this.dimensions.width + 0.5, this.dimensions.height + 0.5, 2.5);

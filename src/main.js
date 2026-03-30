@@ -95,6 +95,7 @@ class Paddle {
     this.mesh.position.copy(this.position);
     this.mesh.castShadow = true;
     this.mesh.receiveShadow = true;
+    if (this.scene) this.scene.add(this.mesh);
     
     const glowGeometry = new THREE.BoxGeometry(this.dimensions.width + 0.5, this.dimensions.height + 0.5, 2.5);
     const glowMaterial = new THREE.MeshBasicMaterial({
@@ -176,6 +177,7 @@ class Ball {
     this.mesh.position.copy(this.position);
     this.mesh.castShadow = true;
     this.mesh.receiveShadow = true;
+    if (this.scene) this.scene.add(this.mesh);
     
     const glowGeometry = new THREE.SphereGeometry(this.radius + 0.5, 16, 16);
     const glowMaterial = new THREE.MeshBasicMaterial({

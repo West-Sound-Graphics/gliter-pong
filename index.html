@@ -1,72 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disco Pong - Three.js</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gliter Pong - Disco Edition</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: #000;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+    }
+    
+    #game-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    #game-over {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 48px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 20px #fff;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px 40px;
+      border-radius: 10px;
+      z-index: 1000;
+      text-align: center;
+    }
+    
+    #instructions {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-size: 16px;
+      text-shadow: 0 0 10px #0ff;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 20px;
+      border-radius: 8px;
+      z-index: 1000;
+    }
+    
+    #title {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-size: 32px;
+      font-weight: bold;
+      text-shadow: 0 0 20px #f0f;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 20px;
+      border-radius: 8px;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
-    <div id="game-container">
-        <canvas id="game-canvas"></canvas>
-
-        <!-- Score Board Overlay -->
-        <div id="score-board">
-            <div id="player-score">PLAYER: <span id="player-score-val">0</span></div>
-            <div id="ai-score">AI: <span id="ai-score-val">0</span></div>
-        </div>
-
-        <!-- Game Title -->
-        <div id="game-title">
-            <h1>DISCO PONG</h1>
-        </div>
-
-        <!-- Start/Game Over Screen -->
-        <div id="overlay" class="overlay">
-            <div id="overlay-content">
-                <h2 id="overlay-title">PRESS SPACE OR START BUTTON TO PLAY</h2>
-                <div id="overlay-message">USE ARROW KEYS TO MOVE YOUR PADDLE</div>
-                <button id="start-btn" class="start-btn">START GAME</button>
-            </div>
-        </div>
-
-        <!-- Difficulty Settings Panel -->
-        <div id="difficulty-panel">
-            <div class="settings-title">AI DIFFICULTY</div>
-            <div class="settings-group">
-                <label for="difficulty-select">Select Difficulty:</label>
-                <select id="difficulty-select">
-                    <option value="easy">Easy</option>
-                    <option value="medium" selected>Medium</option>
-                    <option value="hard">Hard</option>
-                    <option value="impossible">Impossible</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Particles Overlay -->
-        <div id="particles"></div>
-
-        <!-- Instructions Panel -->
-        <div id="instructions">
-            <h3>CONTROLS</h3>
-            <ul>
-                <li><kbd>Arrow Up</kbd> Move Up</li>
-                <li><kbd>Arrow Down</kbd> Move Down</li>
-                <li><kbd>Space</kbd> Pause/Resume</li>
-                <li><kbd>Space</kbd> Reset Ball</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Three.js CDN -->
-    <script type="importmap">
-    {
-        "imports": {
-            "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
-        }
-    }
-    </script>
-    <script type="module" src="game.js"></script>
+  <div id="game-container"></div>
+  
+  <div id="title">🎮 GLITER PONG 🎮</div>
+  
+  <div id="instructions">Use ← ↑ → ↓ keys to move. First to 7 wins!</div>
+  
+  <div id="game-over"></div>
+  
+  <!-- Three.js from CDN -->
+  <script type="module">
+    import { initGame } from './src/main.js';
+    
+    // Wait for DOM to load
+    window.addEventListener('DOMContentLoaded', () => {
+      const gameContainer = document.getElementById('game-container');
+      gameContainer.appendChild(document.createElement('div'));
+      
+      // Initialize game
+      try {
+        const game = initGame(gameContainer);
+        game.start();
+      } catch (error) {
+        console.error('Failed to initialize game:', error);
+        document.getElementById('game-over').textContent = 'ERROR: Could not load game\n\nClick here to try again';
+        document.getElementById('game-over').style.display = 'block';
+        
+        document.getElementById('game-over').addEventListener('click', () => {
+          document.getElementById('game-over').style.display = 'none';
+          const game = initGame(gameContainer);
+          game.start();
+        });
+      }
+    });
+  </script>
 </body>
 </html>

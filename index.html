@@ -17,7 +17,7 @@
       font-family: 'Arial', sans-serif;
     }
     
-    #game-container {
+    #gameCanvas {
       position: fixed;
       top: 0;
       left: 0;
@@ -73,7 +73,7 @@
   </style>
 </head>
 <body>
-  <div id="game-container"></div>
+  <canvas id="gameCanvas"></canvas>
   
   <div id="title">🎮 GLITER PONG 🎮</div>
   
@@ -81,28 +81,33 @@
   
   <div id="game-over"></div>
   
-  <!-- Three.js from CDN -->
+  <!-- Load Three.js from CDN -->
   <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
     import { initGame } from './src/main.js';
     
     // Wait for DOM to load
     window.addEventListener('DOMContentLoaded', () => {
-      const gameContainer = document.getElementById('game-container');
-      gameContainer.appendChild(document.createElement('div'));
+      const canvas = document.getElementById('gameCanvas');
       
       // Initialize game
       try {
-        const game = initGame(gameContainer);
+        const game = initGame(canvas);
         game.start();
       } catch (error) {
         console.error('Failed to initialize game:', error);
-        document.getElementById('game-over').textContent = 'ERROR: Could not load game\n\nClick here to try again';
-        document.getElementById('game-over').style.display = 'block';
+        const gameOverDiv = document.getElementById('game-over');
+        gameOverDiv.textContent = 'ERROR: Could not load game\n\nClick here to try again';
+        gameOverDiv.style.display = 'block';
         
-        document.getElementById('game-over').addEventListener('click', () => {
-          document.getElementById('game-over').style.display = 'none';
-          const game = initGame(gameContainer);
-          game.start();
+        gameOverDiv.addEventListener('click', () => {
+          gameOverDiv.style.display = 'none';
+          try {
+            const game = initGame(canvas);
+            game.start();
+          } catch (e) {
+            console.error('Retry failed:', e);
+          }
         });
       }
     });

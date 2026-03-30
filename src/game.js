@@ -5,10 +5,10 @@ import { Score } from './score.js';
 import { Background } from './background.js';
 
 export class Game {
-  constructor(scene) {
+  constructor(scene, camera, renderer) {
     this.scene = scene;
-    this.camera = null;
-    this.renderer = null;
+    this.camera = camera;
+    this.renderer = renderer;
     this.background = null;
     this.playerPaddle = null;
     this.aiPaddle = null;
@@ -21,9 +21,6 @@ export class Game {
   }
   
   init() {
-    // Setup lighting
-    setupLighting(this.scene);
-    
     // Create background
     this.background = new Background(this.scene);
     
@@ -41,12 +38,12 @@ export class Game {
     this.playerPaddle = new Paddle('player', paddlePosLeft, {
       width: paddleConfig.width,
       height: paddleConfig.height
-    }, this.scene);
+    }, 0xff6600, this.scene);
     
     this.aiPaddle = new Paddle('ai', paddlePosRight, {
       width: paddleConfig.width,
       height: paddleConfig.height
-    }, this.scene);
+    }, 0xff6600, this.scene);
     
     // Create ball
     const ballConfig = GameConfig.game.ball;
@@ -149,7 +146,9 @@ export class Game {
     // Update ball color
     const hue = Date.now() / 10000;
     ball.mesh.material.color.setHSL((hue + 2) % 1, 1, 0.5);
-    ball.glowMesh.material.color.setHSL((hue + 2) % 1, 1, 0.2);
+    if (ball.glowMesh) {
+      ball.glowMesh.material.color.setHSL((hue + 2) % 1, 1, 0.2);
+    }
     
     // Update paddle colors
     this.playerPaddle.mesh.material.color.setHSL((hue + 0.5) % 1, 1, 0.6);
